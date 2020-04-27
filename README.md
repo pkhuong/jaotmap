@@ -15,9 +15,9 @@ subexpressions in the outer `and` reduction tree.
 I'm not actually sure bitmap expressions are a good application for the
 alternatives explored here, but someone pointed out it's a simple toy application (:
 
-The query is a bit small, but that's the reality of toy queries.  It
+The query is a bit small; that's the reality of toy queries.  It
 also doesn't have any repeated term, which avoids what tends to be a
-weak point of interpretative methods.  On the other hard, that's also
+weak point of interpretative methods.  On the other hard, the latter is also
 true of most queries I've worked with, especially once minimised.
 The lack of any `not` operator is also in favour of the interpretative
 method: in the absence of a native AVX `not` instruction, we'd have to
@@ -26,7 +26,7 @@ implementation, fuse with `VPANDN` / `VPTERNLOG`.
 
 [Preliminary results for uncached medium/large inputs](https://docs.google.com/spreadsheets/d/11IAD-plhIb1iaQtXri2L8fd7p0iJZsnBpsUkVtZd8uY/edit?usp=sharing):
 I think a small amount of blocking and a decent inline threaded VM
-should hit 4-5% of a fully specialised loop, without heroic efforts.
+should hit ~5% of a fully specialised loop, without heroic efforts.
 Blocking might add ~0-3% slowdown on top of the `baseline` loop
 (`fused_blocking` VS `baseline`), and threaded dispatch another ~0-3%
 (`wired_fused` VS `specialised_widget` / `fully_specialised_widget`).
@@ -76,7 +76,7 @@ a dynamic bitmap expression evaluator.  The benchmarked code does
 benefit from hardcoding the dispatch with C calls, but otherwise shows
 what overhead we can expect from strip mining and tiling our loops to
 combine fused operators that work on `< L1D`-sized temporaries.
-The "threaded" implementations are meant to explore dispatch overhead.
+The `threaded` implementations are meant to explore dispatch overhead.
 
 The `widget` implementations are unrealistically specialised, and
 serve as clear lower bounds on the potential runtime of YMM-at-a-time
