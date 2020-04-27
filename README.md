@@ -12,6 +12,11 @@ back in my ad tech days.  To scale this up, we'd add more bitmaps to
 inner `or` reduction trees (e.g., `(or z0 z1 z2)`), and more `xor/or`
 subexpressions in the outer `and` reduction tree.
 
+I'm not actually sure bitmap expressions are a good application for the
+alternatives explored here, but someone pointed out it was simple toy application (:
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">With a custom calling convention you could do better, though. <br><br>You are convincing me to code up aotmap and out it against jitmap ;).</p>&mdash; Travis Downs (@trav_downs) <a href="https://twitter.com/trav_downs/status/1254103441691095043?ref_src=twsrc%5Etfw">April 25, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 The query is a bit small, but that's the reality of toy queries.  It
 also doesn't have any repeated term, which avoids what tends to be a
 weak point of interpretative methods.  On the other hard, that's also
