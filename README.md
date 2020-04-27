@@ -34,9 +34,10 @@ especially since my test machine doesn't have `VPTERNLOG`.
 Unsurprisingly, when the inputs are short vectors, everything takes a hit
 compared to the fully specialised loop. However, this benchmark does not
 take into account code generation time, nor does it penalise for I$
-footprint. These considerations are hard to quantify, and out of scope
-for this experiment: I'm happy to compare with a `baseline` that is as
-optimistic as possible.
+footprint.  The `threaded` dispatch methods are also heavily penalised
+with a fixed cost to encode the code to interpret. All these small size
+considerations are hard to quantify, and out of scope for this experiment:
+I'm happy to compare with a `baseline` that is as optimistic as possible.
 
 Methods:
 
