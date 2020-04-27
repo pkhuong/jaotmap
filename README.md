@@ -17,7 +17,7 @@ also doesn't have any repeated term, which avoids what tends to be a
 weak point of interpretative methods.  On the other hard, that's also
 true of most queries I've worked with, especially once minimised.
 
-[Preliminary results](https://docs.google.com/spreadsheets/d/11IAD-plhIb1iaQtXri2L8fd7p0iJZsnBpsUkVtZd8uY/edit?usp=sharing):
+[Preliminary results for uncached medium/large inputs](https://docs.google.com/spreadsheets/d/11IAD-plhIb1iaQtXri2L8fd7p0iJZsnBpsUkVtZd8uY/edit?usp=sharing):
 I think a small amount of blocking and a decent inline threaded VM
 should hit 4-5% of a fully specialised loop, without heroic efforts.
 Blocking might add ~0-3% slowdown on top of the `baseline` loop
@@ -26,6 +26,13 @@ Blocking might add ~0-3% slowdown on top of the `baseline` loop
 The test query also happens to be pretty much a best case for the
 `baseline` approach: there's nothing particularly clever to do here,
 especially since my test machine doesn't have `VPTERNLOG`.
+
+Unsurprisingly, when the inputs are short vectors, everything takes a hit
+compared to the fully specialised loop. However, this benchmark does not
+take into account code generation time, nor does it penalise for I$
+footprint. These considerations are hard to quantify, and out of scope
+for this experiment: I'm happy to compare with a `baseline` that is as
+optimistic as possible.
 
 Methods:
 
