@@ -16,6 +16,10 @@ The query is a bit small, but that's the reality of toy queries.  It
 also doesn't have any repeated term, which avoids what tends to be a
 weak point of interpretative methods.  On the other hard, that's also
 true of most queries I've worked with, especially once minimised.
+The lack of any `not` operator is also in favour of the interpretative
+method: in the absence of a native AVX `not` instruction, we'd have to
+keep a constant with all bits set, for `xor`... or, in a sophisticated
+implementation, fuse with `VPANDN` / `VPTERNLOG`.
 
 [Preliminary results for uncached medium/large inputs](https://docs.google.com/spreadsheets/d/11IAD-plhIb1iaQtXri2L8fd7p0iJZsnBpsUkVtZd8uY/edit?usp=sharing):
 I think a small amount of blocking and a decent inline threaded VM
