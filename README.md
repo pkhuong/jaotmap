@@ -71,7 +71,7 @@ combine fused operators that work on `< L1D`-sized temporaries.
 The "threaded" implementations are meant to explore dispatch overhead.
 
 The `widget` implementations are unrealistically specialised, and
-serve as clear lower bounds on the performance of YMM-at-a-time
+serve as clear lower bounds on the potential runtime of YMM-at-a-time
 dispatch.
 
 The `threaded` implementations show what how well a realistic dispatch
