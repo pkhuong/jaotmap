@@ -17,11 +17,21 @@ also doesn't have any repeated term, which avoids what tends to be a
 weak point of interpretative methods.  On the other hard, that's also
 true of most queries I've worked with, especially once minimised.
 
+[Preliminary results](https://docs.google.com/spreadsheets/d/11IAD-plhIb1iaQtXri2L8fd7p0iJZsnBpsUkVtZd8uY/edit?usp=sharing):
+I think a small amount of blocking and a decent inline threaded VM
+should hit 4-5% of a fully specialised loop, without heroic efforts.
+Blocking might add ~0-3% slowdown on top of the `baseline` loop
+(`fused_blocking` VS `baseline`), and threaded dispatch another ~0-3%
+(`wired_fused` VS `specialised_widget` / `fully_specialised_widget`).
+The test query also happens to be pretty much a best case for the
+`baseline` approach: there's nothing particularly clever to do here,
+especially since my test machine doesn't have `VPTERNLOG`.
+
 Methods:
 
-1. `baseline` is the natural for loop with a fully fused body.  That's
-   pretty much what I expect from a baseline JIT compiler built on top
-   of a production code generator like LLVM.
+1. `baseline` is the natural for loop with a fully specialised fused
+   body.  That's pretty much what I expect from a baseline JIT
+   compiler built on top of a production code generator like LLVM.
 
 2. `blocking` makes C calls to out-of-line functions for boolean
    operations on short blocks.
@@ -63,6 +73,6 @@ to do badly: it's pretty clear that we need bigger superinstructions
 to amortise `NEXT`.  That's what `fused_threaded_inreg` implements,
 and is close what I'd expect from a respectable implementation of a
 YMM-at-a-time target.  Finally, `wired_inreg_fused` should be
-representative of a simple runtime code generator, with complexity
+representative of a simple runtime code generator in the same vein as [ffts](https://github.com/anthonix/ffts), with complexity
 similar to a runtime linker: copy some machine code, patch up
 references, and write integer constants at a couple offsets.
